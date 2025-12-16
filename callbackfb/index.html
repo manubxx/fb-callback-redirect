@@ -16,56 +16,32 @@
       border-radius: 4px;
       display: block;
       margin: 1em auto;
-      font-size: 1.2em;
+      font-size: 1.1em;
       max-width: 80%;
       word-wrap: break-word;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      background-color: #1877f2; /* blu Facebook */
-      color: white;
-      border: none;
-      padding: 12px 30px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.3s;
-      outline: none; /* non focusabile */
-    }
-
-    .btn:hover {
-      background-color: #145dbf;
-    }
-
-    .btn:active {
-      background-color: #0f4590;
     }
   </style>
 </head>
 <body>
-  <h2>Login effettuato!</h2>
-  <p>Il tuo token è stato copiato automaticamente negli appunti. Torna nell'app per completare il login.</p>
-  <code id="tokenDisplay">Caricamento token...</code>
+  <h2>Login effettuato ✅</h2>
+  <p>
+    Il token è stato copiato automaticamente negli appunti.<br>
+    <strong>Torna all’applicazione per completare il login.</strong>
+  </p>
 
-  <button class="btn" onclick="window.close()">Chiudi</button>
+  <code id="tokenDisplay">Caricamento token...</code>
 
   <script>
     const hash = window.location.hash;
+
     if (hash && hash.includes('access_token=')) {
       const token = hash.split('access_token=')[1].split('&')[0];
       document.getElementById('tokenDisplay').innerText = token;
 
-      navigator.clipboard.writeText(token).then(() => {
-        console.log("Token copiato negli appunti.");
-      }).catch(err => {
-        console.error("Errore copia:", err);
-      });
+      navigator.clipboard.writeText(token)
+        .catch(() => {});
     } else {
-      document.body.innerText = "Accesso annullato o fallito.";
+      document.body.innerHTML = "<h2>Accesso annullato o fallito.</h2>";
     }
   </script>
 </body>
